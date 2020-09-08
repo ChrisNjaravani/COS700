@@ -1,0 +1,12 @@
+{
+  "name": "Rapp",
+  "displayName": "Rapp",
+  "expo": {
+    "name": "Rapp",
+    "slug": "Rapp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
