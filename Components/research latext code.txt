@@ -1,0 +1,257 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{lmodern}  
+\usepackage{biblatex}
+\addbibresource{proposal.bib}
+\usepackage{mdframed}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage[margin=1.5in]{geometry}
+
+\newcommand{\BlackBox}{\rule{1.5ex}{1.5ex}}
+
+\definecolor{blue}{rgb}{0,0,0.8}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset
+{
+   basicstyle=\ttfamily\footnotesize,
+   language=C++,
+   numbers=right,
+   numberstyle=\color{gray},
+   showtabs=true,
+   breaklines=true,
+   breakatwhitespace=true,
+   captionpos=bottom,
+   keywordstyle=\color{blue},
+   commentstyle=\color{dkgreen},
+   stringstyle=\color{mauve},
+   frame=single
+}
+
+\mdfsetup
+{
+   skipabove=\topskip,
+   skipbelow=\topskip,
+   leftmargin=2em,
+   rightmargin=2em
+}
+
+
+\title
+{
+   \includegraphics[width=12cm]{up_logo.png} \\
+   \vspace{2cm}
+   
+   \textbf{Continous authentication on Android platforms} \\ \vspace{0.5cm}
+   \textbf{Student number:} u15022392 \\ \vspace{0.5cm}
+   \textbf{Supervisor(s)}:  Prof. Jan Eloﬀ
+
+}
+
+\date{}
+\begin{document}
+
+\maketitle
+
+\newpage
+\linespread{1.25}
+
+\section*{Abstract}
+Increased use of Android mobile devices in the 21st century have resulted in them being prime targets for unauthorised use and access. Over the past few years, Android devices have been authenticating users only at the initial login which caused a critical security flaw whereby an imposter can access and use device’s resources such as banking applications, emails up until the initial user logs out or is logged out of the device. To try and reduce this security flaw, Android devices need to continuously monitor and authenticate users. The proposed study seeks to investigate four methods to continuously authenticate a user. Firstly, continuously authenticate  a user by recording the X and Y finger touch coordinates on the screen whilst scrolling up or down, secondly by measuring the rotation(tilt) angle of the Android mobile device along the z-axis(or Azimuth) when a user is scrolling up or down, thirdly measuring the time interval between finger touch and release for every scroll event detected and lastly by determining whether a user is a left( uses left thumb to scroll) or right (uses right thumb) scroller.
+
+\section*{Keywords:}
+Continuous authentication, bio-metric, behavioural, facial recognition,Weighted Individual Index, Azimuth.
+
+\newpage
+
+\section{Introduction}
+The recent increase in the use of android devices for acquiring, processing and storing sensitive data such as emails, banking information and contact details have made them prime targets for unauthorised access \cite{Leopoldina}\cite{sharma}. With the majority of existing Android devices authenticating users mostly at the initial login session this has resulted in major security flaws \cite{Koichiro}. For example an imposter can access and use the devices’ resources such as emails and banking applications in between the period when initial user has logged in up and until the initial user logs out\cite{mondal}. Once an unauthorised user gets access to the Android devices’ resources, confidentiality, availability and integrity of data is compromised \cite{aljohani2017continuous}. Once an unauthorised user gets access to the system resources the confidentiality, availability and integrity of data is compromised \cite{aljohani2017continuous}. With Android devices becoming high risk environments in the 21st century, continuous authentication of a user’s identity is increasingly a matter of importance from an information security perspective. \\ \\
+ Previous research has been conducted on biometric traits being used for continuous authentication on Android mobile devices \cite{jain2007handbook} \cite{jain2004introduction}\cite{anil2007}\cite{anil2004}. For example using facial recognition to continuously authenticate a user’s identity \cite{altinok2003temporal}. However, even though users do exhibit unique facial signatures (often made up of the distance between eyes and distance from forehead to chin) the method does have its own weaknesses. For example the method fails to continuously authenticate user’s identity in the event that a user turns his or her face away from the camera \cite{niinuma2010}.Infact, this becomes periodic authentication rather than continuous authentication which is basically authenticating a user at certain discrete time intervals e.g. after 5 seconds, after every 5 minutes or maybe after a day. As a result, the Android device becomes more vulnerable to unauthorised use and access in between these time intervals since there is no authentication happening. Hence attacker might use timed in-between periodical attacks \\ \\
+ Some papers also supported the use of multimodal biometrics to reduce the limitations of using a single biometric trait for continuous authentication \cite{hadian2019}. For example using a combination of t-shirt colour and facial recognition to continuously authenticate a user’s identity \cite{niinuma2010}. The framework proposed by Koichiro and etc \cite{niinuma2010} automatically registered both t-shirt color and initial face capture every time a user logs in on the Android device and then fuse it with the username and password conventional authentication scheme. Even though combining two biometric traits to continuously authenticate a user can help reduce the weaknesses of each method, t-shirt color does not provide sufficient discriminatory information about a specific user hence a weak method. Usually t-shirt colors are affected by light intensity i.e. in low lightening areas it can be difficult for a camera to sufficiently discriminate between orange and red colors. Changing the working environment can also have a negative effect on using both t-shirt color and facial recognition to continuously authenticate user’s identity. For example what happens when a user of an Android device decides to move into a dark environment e.g. switches of the light in a dark room? Obviously the method fails to detect both t-shirt color as well as the face. Hence a conclusion can be made that, the above method works if and only if same lightning environment is maintained therefore a method that works in both environments is going to be more preferable. \\ \\
+Therefore, the proposed study seeks to investigate four methods which uses multi-modal behavioural characteristics to continuously authenticate a user’s identity. Firstly, continuously authenticate  a user by recording the X and Y finger touch coordinates on the screen whilst scrolling up or down, secondly by measuring the rotation(tilt) along the z-axis(Azimuth or inclination) when a user is scrolling up or down, thirdly measuring the time interval between finger touch and release for every scroll event detected and lastly by determining whether a user is a left( uses left thumb to scroll) or right (uses right thumb) scroller. By using a combination of four methods to continuously authenticate, reliance on one method is reduced i.e. if one fails to detect unauthorised access others will come to rescue. Impersonation is also reduced since the attacker will have to try and portray four behavioural profiles of the genuine user at the same time.
+
+
+\section{Problem Statement}
+Increased use of Android devices in the 21st century to acquire, store and process sensitive data such as emails, banking information have made them prime targets for unauthorised  access \cite{sharma}. Increased  user reliance on our mobile devices to process most of our sensitive information implies that unauthorised access is also set to increase. The need for user data is also increasing due to expansions in Big Data. Thus, there is need for new robust techniques that can continuously authenticate Android device users to make sure that their identity is continuously verified post the initial login process so as to promote privacy.
+
+
+\section{Literature Review and Study}
+Research has been done and researchers have approached continuous authentication on Android devices from many different angles. Some have focused on using biometric characteristics \cite{Rasnayaka} such as facial recognition, t-shirt and eye color , others have also focussed on behavioural characteristics \cite{kaluzny2019touchscreen} such as typing motion characteristics, swipe and touch gestures \cite{frank2012touchalytics}\cite{smith2019novel}, battery power consumption and others have focussed on the combining more than two authenticating methods for example fusing typing, swiping and phone movement patterns\cite{garbuz2019continuous}\cite{siirtola2019effect}\cite{smith2019novel}. \\ \\
+Niinuma and Park and Jain \cite{niinuma2010soft} used a combination of facial recognition and t-shirt color to continuously authenticate user’s identity. They automatically registered both t-shirt color and initial face capture every time a user logs in on the Android device and then fuse it with both the username and password conventional authentication scheme. Data was then collected from 12 participants and they find out that the implemented method gave them positive results when a user turns his or her head to the left, right and down. Thereafter both the facial data together with the t-shirt color were then used to verify user identity. In addition to that, the method only yielded positive results provided that the Android device’s camera is aligned vertically to the user’s face. Even though the multi-modality of the authentication system was there to deter attackers from trying to imitate both methods simultaneously, chances are high that Android device users will not keep their devices perfectly vertical to their faces at all times hence the method becomes unreliable \cite{crouse2015continuous}. For example, user using the device whilst the device is lying on a flat surface, for instance on a table, the device camera won’t be perfectly vertical opposite to the user’s face hence no continuous authentication happens during that period. Moreover, relying again on t-shirt color is not a good idea since colors are affected by light and also t-shirt color does not provide enough discriminatory data about a specific user. For instance, user is using the device in a low lightening environment? e.g. in a dark room, in such situations the above two methods fails. \\ \\
+In order to counter for changes in the vertical orientation of the Android device camera, Crouse and Han and Chandra and Barbello and Jain \cite{crouse2015continuous},  used a combination of facial recognition and magnetometer data to correct for vertical device camera orientation relative to user face. The camera continuously captured and store different user images whilst the user interacts with the device, then continuously compare them with multiple face images of the genuine user which were captured, registered and stored for later use at the initial login stage. They collected images of 10 participants within a period of 1 to 6 weeks and find out that the system yielded a 96\% success rate in identifying legitimate users. Even though this method improved facial recognition accuracy authenticating users based using only one security feature opened the backdoor for attackers to only focus and try imitate only one security feature which can be done without much difficulty. \\ \\
+To improve on Crouse et al. \cite{crouse2015continuous}‘s reliance on one method to authenticate and to reduce the chances of an attacker trying to exploit the weaknesses presented by using one method of authentication,  Smith-Creasey and Rajarajan \cite{smith2016continuous} presented a framework that combined both facial recognition and touch gesture modality. A data set made up of 50 participants containing touch-gesture and facial recognition data values was used. Thereafter a classifier to train it to learn and to produce a probability score for each sample. They find out that a combination of both modalities performed better than either of the individual modalities. In addition to that they also find out that facial recognition provides more reliable data as compared to touch-based gesture. Even though use of two continuous authenticating methods meant that the overall security of the whole system is improved, the positive results came at a price. Time taken to do the comparisons between the real time picture faces and pre-stored face data and also time taken to do the comparisons between real time touch gesture values and pre-stored touch gestures meant that the overall authentication method was very slow.\\ \\
+So as to improve on Smith-Creasey et al. \cite{smith2016continuous}'s overall performance i.e. reduce time taken to compute the tasks, Smith-Creasey and Albalooshi and Rajarajan \cite{smith2018continuous} continuously authenticated a user using the same method. The major improvement was that they developed a system that tracked the authenticated user’s face and only attempts to re-authentication once the face of the authenticated user is lost or there is a change in picture. As a result, attack windows in between re-authentication were eliminated. Unnecessary comparisons and computations were also eliminated, for instance comparing real time face picture with pre-stored values when there is no new face has been detected by the camera. Even though the above method was an improvement in the sense that power battery was saved due to less value comparisons the methods focused mostly on facial recognition which becomes a very challenging method for instance if the user is using the device in a dark or low light environments. Without the camera being equipped with night vision, the authenticating method fails to detect users in dark environments. \\ \\ 
+However, on the other side researchers references also focused on behavioural characteristics (Rocha, 2019) such as typing biometrics, screen touch gestures\cite{frank2012touchalytics}\cite{smith2019novel}\cite{kaluzny2019touchscreen}. To mention a few De Ru and Eloff \cite{de1997enhanced}  worked on a solution that contributed evidence that typing biometrics are unique for different computer users. They applied fuzzy logic to measure different user typing biometrics. User profile data was made up of time interval it takes for a user to type in two consecutive characters that make up the password and the distance between two consecutive characters in that make up the password. However, there were some drawbacks, for example what happens to the time interval between two characters when a user is interrupted by something else whilst typing the password on the computer? This implies that in that case same user will have different user profiles hence might be denied access to the computer or treated as an intruder. As a result, De Ru at el. \cite{de1997enhanced}’s solution only worked in some situations (no interruptions happen when typing in a password) and did not work when a user is interrupted whilst typing password.  Even though their research focussed on computer users, results obtained by them provided evidence that typing biometrics are actually unique for different computer users hence can be applied to mobile device authentication since both devices makes use of keyboards. \\ \\
+To improve on De Ru at el. \cite{de1997enhanced}’s shortcomings, Ara{\'u}jo and Sucupira and Lizarraga and Ling and Yabu-Uti \cite{araujo2005user} also used typing biometrics to continuously authenticate a specific user on a system. Rather than focussing only at the initial login session as De Ru did, their methodology focused on initial login authentication as well as continuous authentication on a system for the duration of the user session. Moreover, they used 3 features to make up user profile data i.e. they used key code, two keystroke latencies and key duration unlike De Ru at el. \cite{de1997enhanced}) whose methodology only used two features to make up user profile data. Three features implied more user data was available hence an increase in the quality of user profile. Each time a user tries to access a system, the user would indicate an account and then types in a target string, whilst the user is typing, the system in the backend captured and created a sample containing all the features data. If the sample matches an existing account, then the user was allowed access to the system and if not, the user was either blocked from using the system or a new account was created in the event that it’s a new registration. In the event that the user is allowed access to the system, the system continuously monitored the user when ever he or she types in two consecutive characters that match two consecutive characters stored in the original initial registered sample. \\ \\ 
+Even though Ara{\'u}jo at el. \cite{araujo2005user}’s approach of typing biometrics to continuously authenticate users was on an ordinary system and not mobile devices, we see the application of typing biometrics on mobile android phones to continuously authenticate users. Giuffrida and Majdanik and Conti and Bos \cite{giuffrida2014sensed} continuously authenticated Android device users by proposing a sensor enhanced keystroke dynamics mechanism. They implemented an Android prototype system that relied mostly on machine learning i.e. extract certain unique features about a specific Android user whilst the user is typing. Results concluded that sensor based enhanced keystroke or typing dynamics can improve the accuracy of gesture based continuous authentication systems by one order of magnitude and most importantly improve the traditional keystroke dynamics by two orders of magnitude. Even though this forms one of the earlier applications of typing biometrics to continuously authenticate Android device user’s reliance on one modality meant that the method was prone to imitation by attackers by simply learning the typing patterns of the genuine users. More so what happens if the attacker is not directly involved in typing anything and is just reading? Furthermore, typing motion behaviour (pressure and speed applied when pressing keys) is usually affected by things like mood, the way a person types when he or she is angry is different from a way a user types when he or she is happy or drunk. \\ \\
+To overcome problems brought about by use of one modality to continuously authenticate Android users, Murmuria and Stavrou and Barbar{\'a} and Fleck \cite{murmuria2015continuous} continuously authenticated users by providing three lines of defence namely power consumption, touch gestures and physical movement of users. Three lines of defence were there to deter attackers from trying to imitate three modalities simultaneously. They then used detection algorithms to distinguish anomaly for each modality. They went on to collect data from 73 voluntary participants. They found out that their system performed very well whilst the end user was using the most popular mobile device applications. However, questions remain, what happens if the users do not use the well-known mobile applications, how is power consumption linked to a specific user because one would expect application usage to depend on mood of the user? This implies that users of Android devices will always have a different user profile almost everyday depending on the mood and feeling on a specific day. \\ \\
+On the other hand, (Schiavone, 2019) combined both the behavioural and biometric traits so as to benefit from the benefits of each. They used a combination of facial recognition and keystroke dynamics to continuously authenticate users. Use of biological features such as facial recognition was there to deter attackers from trying to manipulate the system, hence strong line of defence and also use of key stroke dynamics as a complimentary to facial recognition. The system went on again to test system usability and its trade-offs with security, they found out that users managed to complete their actions without any additional effort and also that users accepted the authentication system which only requires minimal training. Even though both biometric and behavioural authentication traits were taken into consideration the problem still exists of what exactly happens if a user turns the face away from the camera. In that case can we truly rely on just keystroke dynamics and also can’t attackers use this loophole to bypass the security of the Android device by just resorting to keystroke dynamics. It is easier to imitate user keystroke dynamics profile than impersonating someone’s face.
+
+\section{Methodology}
+
+\subsection{Overview}
+Our methodology uses fuzzy logic to continuously authenticate an Android user's identity during interaction with the device. Our methodology simply supports the normal conventional password mechanism, even though our methodology is only activated post the initial login in process. This involves analysis of user's unique behavioural characteristics which they exhibit when they are scrolling content on their mobile devices. This cheaper software technique acts as a post-password security measure  to continuously monitor user's identity during  interaction with their Android devices. Its important to state that, our methodology simply supports the primary authentication method of pin and password. \textbf{Figure} 1 below details how our methodology is applied post initial password login.\\
+
+ \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{research (1).png}
+ \end{figure}
+
+\caption{
+ Figure 1. Continuous authentication on Android using Behavioural characteristics
+}
+\\ 
+
+\textbf{Fuzzy logic in summary} - applies multi-valued logic to model problems and situations that deal with ambiguous data \cite{de1997enhanced}. It is basically a generalization or summarization of the traditional bivalent logic. Its applied often to handle the concepts of partial truths \cite{nauck1997foundations}\cite{kosko1994new}\cite{melin2005hybrid}, where the value is a range, from completely true to completely false. For example the following statements, "The time interval between screen finger touch and release during scrolling is short.", "The angle of  rotation along the z-axis(Azimuth) is very small.", "The X and Y coordinate values are very big", are all ambiguous. Where can we draw the upper and lower limits for "\emph{very small}", "\emph{very big}" and  "\emph{very short}"?. Hence Fuzzy logic holds that everything is a matter of degree \cite{de1997enhanced}.
+
+\subsection{Design}
+\subsubsection{Our System Inputs}
+Our methodology uses four inputs to categorize a user's behavioural patterns. Firstly, it uses \emph{time intervals} between screen touch and release when a user is scrolling content on the screen - every scroll event does have \emph{on touch start} and \emph{on touch end} times, so when a user touches the screen to start scrolling time $t_1$ is recorded and when he or she removes the finger on the screen to finish that specific scroll event time $t_2$ is recorded. Hence Time Interval for that specific scroll event is $t_2$ minus $t_1$ (Time Interval = $t_2$ - $t_1$) , Secondly it uses the \emph{X and Y}  screen touch coordinates of a user when he or she is scrolling content on the screen, Thirdly it uses the \emph{Z-angle} or \emph{tilt angle} of the Android device in space whenever a user is holding the Android device  and scrolling content, lastly it uses the user's most favourable \emph{scrolling side} on the screen i.e whether a user is a \emph{right or left scroller}  - whether user uses the right or left thumb when scrolling. Research on mobile device scrolling suggests that some users are right handed scrollers and others are left handed scrollers \cite{inkpen2006left}\cite{perry2008evaluating}.
+
+\subsubsection{System Output}
+Because our methodology aims to categorize each individual user's  behavioural patterns, therefore system output is going to be this Categorization. Thereafter this categorization is then going to be used to uniquely identify each user.
+
+\subsubsection{Relating system inputs to system outputs}
+Even though, there is a close relationship between system inputs and outputs, that relationship is fuzzy or indistinct - it is difficult to perceive. Hence quantifying the system's inputs' effects to output is very challenging. However its better to quantify the relationship using linguistic terms. For example we can say that if the \emph{Weighted Individual Time Interval}  is \emph{somewhat short}, then the user can be classified as a \emph{slow scroller}. Moreover, to make our lives easier, we can treat these linguistic terms as subsets in both system inputs and system output. For example we can have the following subsets for the Time Interval, \emph{very short, moderately short and short}. With these sets what it means is that the Time Interval might be very short(low) for someone who is not familiar with the Android mobile device at hand and Time Interval might also be very long(high) for a relaxed person which might imply the device is with the right owner. The same applies for the Tilt angle, the \emph{Weighted Individual Tilt Angle} might be very small(low) and small (high). \\ \\
+Experimentation has shown us that, Time Interval, X and Y coordinates are more influential, compared to Tilt Angle and user's favourite scrolling side. Therefore, our methodology uses the following \emph{short, moderately short and very short} for Weighted Individual Time Intervals, Weighted Individual X Coordinate and Weighted Individual Y Coordinate. We also use \emp{low and high} for both the Weighted Individual Tilt Angle and the scrolling side since they are less influential. With regards to the output, our methodology uses the following, \emph{low, medium and high} for Categorization. Using the above subsets we can express relationships between inputs and output using the following conditions shown below in \textbf{Figure 2}
+
+
+\[ \textbf{W} = \frac{\sum_{i=1}^n w_i X_i}   {\sum_{i=1}^n w_i}
+
+\]
+where \textbf{W} is the Individual Weighted Average, \textbf{n} is the number of values in that input input dataset, \textbf{$w_i$} is frequency of that value in the dataset, \textbf{$X_i$} is the data value in the dataset to be averaged. \\ \\ The reason why we use Weighted Averages is because Weighted average minimizes the effect of unusual high and-low values. For example we can have the following sets for X coordinates (270, 260, 270, 230, 250), in this case the highest X value is 270 and the Lowest is 230. Therefore to minimise this large gap between highest and lowest, we simply compute the Weighted Average. For the above the Weighted Average is 256. So as a result 256 can be used to represent the whole data set above. After that 256 can be linked to a specific subset i.e it can be very short, moderately short or shot, all this depends on how the upper and lower limits for each of these subsets are defined. \textbf{(to be discussed later)}
+
+ \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{w1.JPG}
+ \end{figure}
+\caption{
+Figure 2: Conditions stating relationships between inputs and Output
+}
+
+\subsubsection{Relating Precise Values to fuzzy sets}
+Even though we can actually express the relationships between inputs and outputs, using linguistic expressions, the individual values themselves, they are precise they arent always the same. For example when a user is scrolling content on the Android device the time interval between screen touch and release can be 213, 226, 225, 267 milliseconds. These values are specific and precise to a certain user but they are distinct. That's where the whole concept of using Weighted Individual values come into place, so that we can have a more stable value that we can map to a linguistic set. \\ \\
+To map Weighted Individual Index values we use \textbf{Membership functions} which is a degree to which which a specific, precise Weighted Individual index value belongs to a set. So for our methodology we combined both membership functions and range to place the Weighted Individual Index value into a subset. For example for the ranges we used $q_1$ and $q_2$ to make upper and lower limits between different or subsets. For example, Lets say the Weighted Individual Time Interval for a user $U_1$ is $W_{t1}$. We say, if $W_{t1}$ $<$ $q_1$ then it falls under the \emph{very short} subset, if $q_1$ $<$ $W_{t1}$ $<$ $q_2$ then it falls within the \emph{moderately short} subset and lastly if $W_{t1}$ $>$ $q_2$ then it falls within the \emph{short} subset. \\ \\
+The question comes then, how and where did we get $q_1$ and $q_2$  and whats the justification for using them? Experimentation has shown us that, if all values  for Weighted Individual Time Intervals are added for all users, some of the Weighted Individual Time Interval Values were within the Lower percentile  and others were also in between lower and higher percentile and others were also in the higher percentile when all Weighted Individual Values were added. So we established that any values less that $q_1$ can be classified as falling within the very short subset, those in between $q_1$ and $q_2$ falls within the moderately short subset and lastly values greater than $q_2$ falls within the short subset. \\ \\
+
+
+\[ \textbf{$q_1$} = \frac{\sum_{i=1}^n W}   {3}
+
+\]
+Where $q_1$ is the upper limit for the \emph{very short} subset, \emph{W} is the Weighted Individual Average \textit{(it can be Weighted Individual Time Interval or Weighted Individual X coordinate or Weighted Individual Y coordinate or Weighted Individual Tilt Angle)}
+
+\[ \textbf{$q_2$} =  \textbf{$q_1$} +  \frac{\sum_{i=1}^n W}   {3}
+
+\]
+Where $q_2$ is the upper limit for the \emph{moderately short} subset, \emph{W} is the Weighted Individual Average \textit{(it can be Weighted Individual Time Interval or Weighted Individual X coordinate or Weighted Individual Y coordinate or Weighted Individual Tilt Angle)}
+
+
+ \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{wx.JPG}
+ \end{figure}
+ \caption{Figure 3: Membership function for the Weighted Individual X coordinate input } \\ \\
+ Using \emph{Figure 3} above we can see how our Membership functions maps the Weighted Individual Values to the different fuzzy sets \textit{(Very short, moderately short and short)}, \emph{$q_1$}  = 230, \emph{$q_2$} = 250. Lets say for example, Weighted Individual X coordinate $W_{x1}$ = 225. So since $W_{x1}$ $<$ {$q_1$} since {$q_1$} = 230, then $W_{x1}$ belongs to the fuzzy set \emph{Very short}, the same applies if $W_{x2}$ = 240, since {$q_1$} $<$ $W_{x2}$ $<$ {$q_2$} then $W_{x2}$ belongs to the fuzzy set moderately short.The same applies if $W_{x1}$ $>$ $q_2$, then it belongs to the fuzzy set \emph{short}. \\ \\
+ 
+In \emph{Figure 3 } above, every Weighted Individual Value, firstly belongs to a certain fuzzy set \textit{(very short, moderately short or short)} and also corresponds to a certain percentage degree to which it belongs to that fuzzy set. Lets consider the fuzzy set, \emph{very short} - middle values within that fuzzy set has a higher Percentage Confidence level eg the value 220 has a confidence level 0f 100 percent which means 220 strongly belongs to the Very short fuzzy set. Values closer to  230 does have a small confidence level, which means Yes they belong to Very short but the degree to which they belong to Very short is very small when compared to values closer to 220.
+
+ \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{y.JPG}
+ \end{figure}
+ \caption{Figure 4: Membership function for the Weighted Individual Y coordinate input }
+  \emph{For figure 4}, $q_1$ = 610 and $q_2$ = 630, hence any user's Weighted Individual Y coordinate can only belong to one of the following,  \textit{Very short, moderately short and short}.
+ 
+  \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{time.JPG}
+ \end{figure}
+ \caption{Figure 5: Membership function for the Weighted Individual Time Interval input } \\ \\
+ \emph{For figure 5}, $q_1$ = 180 and $q_2$ = 200, hence any user's Weighted Time Interval can only belong to one of the following,  \textit{Very short, moderately short and short}.
+ 
+ \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{scroll.JPG}
+ \end{figure}
+ \caption{Figure 6: Membership function for the Scrolling Individual side input } \\ \\
+ 
+
+ \emph{For figure 6} , an Android device user can either be a left or right scroller \textit{(whether user uses left or right thumb for scrolling)}. So fuzzy sets for scrolling side are Low for left scrollers and High for right scrollers. A user belongs 100 percent to either Low or High fuzzy sets but not both.
+ 
+  \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{categorization.PNG}
+ \end{figure}
+ \caption{Figure 7: Membership function for the Categorization of our outputs} \\ \\
+ 
+ \emph{Figure 7} ,  represents a graph for the Categorization. All inputs \textit{time interval,X and Y coordinates, Z-tilt angle, Scrolling side} will then be mapped into the Categorization's fuzzy sets. For figure 7 above, The degree of membership i.e we only say if Its \textit{Time Interval} and the \textit{Weighted Individual Time Interval} fired \textit{Condition 1} from \textit{Figure 2} then it falls into the \textit{very short} fuzzy set of \textit{Weighted Individual Time Intervals}, but according to Condition 1, fuzzy set \textit{very short of Weighted Time Interval} has to be mapped into the \textit{Low} fuzzy set of Category.
+ 
+ \subsubsection{Categorization}
+ On analysis of our methodology, the Weighted Individual, \textit{ Time Interval, X and Y coordinate , Z-angle and scrolling side} caused the activation of \textit{Conditions} as shown in \textit{Figure 2}. For example Lets consider \textit{Figure 3} which has fuzzy sets and Weighted Individual X coordinate values. A Weighted Individual X value, \emph{$W_{x1}$} = 220 falls into the \textit{Very Short} fuzzy set. According to \emph{Figure 2}, \emph{$W_{x1}$} will fire Condition 4, because for Condition 4 to be valid, the  Weighted Individual X coordinate has to be in the \textit{very short} fuzzy set. The same applies for Weighted Individual Time Interval, \emph{$W_{t1}$} = 190, it belongs to the \textit{moderately short} fuzzy set (see Figure 5), therefore it will activate Condition 2 (see Figure 2). Since Condition 2 says, if the Weighted Individual Time Interval is moderately short, then the Category is Medium. \\ \\
+ Given the Weighted Individual Time Interval, $W_{t1}$ = 190, it will activate or fire Condition 2, which in turn yields the Categorization = Medium as shown in Figure 2. Moreso, a left scroller will activate Condition 12, which yields the Categorization = Low, Moreso if the Weighted Individual Y coordinate $W_{y1}$ = 640, it will activate Condition 9, which yield the Categorization = High.
+ Lets consider the following inputs from a specific user \emph{$User_1$} and see how our methodology computes his or her behavioural characteristics template. \\ \\
+ {$User_1$} has the following characteristics \textit{(to see how the Weighted values are calculated, check Page 9)} 
+ \begin{itemize}
+ \item The Weighted Individual Time Interval, $W_{t1}$ = 210.
+ \item The Weighted Individual Y Coordinate, $W_{y1}$ = 600.
+ \item The Weighted Individual X Coordinate, $W_{x1}$ =260.
+ \item The Weighted Individual Tilt Angle , $W_{tilt}$ = 1.23. \textit{(angle is in radians)}
+ \item He or she is a left scroller.
+\end{itemize}
+ 
+ Given the above information, Our methodology constructs {$User_1$}'s behavioural characteristics template, as follows
+  \begin{itemize}
+  \item $W_{t1}$ = 210, falls within the \textit{short} fuzzy set that activates \textit{Condition 3} which yields the Output Category = Low
+ \item  $W_{y1}$ = 600, falls within the \textit{very short} fuzzy set that activates \textit{Condition 7} which yields the Output Category = Low
+ \item  $W_{x1}$ =260, falls within the \textit{short} fuzzy set  that activates \textit{Condition 6} which yields the Output Category = High
+ \item  $W_{tilt}$ = 1.23, falls within the \textit{low} fuzzy set  that activates \textit{Condition 10} which yields the Output Category = Low
+ \item He or she is a left scroller, falls within the \textit{left scroller} fuzzy set that activates \textit{Condition 12} which yields the Output Category = Low
+ \end{itemize}
+ 
+ So \emph{$User_1$} with our methodology activates Conditions 3,7,6,10,12 \textit(see Figure 2) which matches the following \textit{Low,Low,High,Low,Low} in this order. So the behavioural characteristics template \emph{$T_1$} profile for \emph{$User_1$}  will be, \emph{$T_1$} = \textit{Low,Low,High,Low,Low}. But here is the catch, Does Weighted Individual, Time Interval, X coordinate, Y coordinate, Tilt angle and scrolling side have the same influence on  the Output template  \emph{$T_1$} ? The answer is No. So using the output template \emph{$T_1$} to continuously authenticate any user using \emph{$User_1$} Android mobile device will be very unfair. Experimentation has shown us that, Weighted Individual Time Interval, Weighted Individual X coordinate and Weighted Individual Y coordinate does have much influence on the Output template \emph{$T_1$} and scrolling side and Tilt angle does have less influence. \\ \\
+ So to cater for different influences that are exhibited by different inputs (Weighted Individual Values), our methodology assigns weights (credits) to each of the Weighted Individual values to reflect its influence in the output template profile. So for our methodology we assigned the following weights to each Individual Weighted Value. \\ 
+ \begin{center}
+ \textit {Scrolling side = 12.5\% of Total Credits} \\
+ \textit {Weighted Individual Tilt Angle = 12.5\% of Total Credits} \\
+ \textit {Weighted Individual Y coordinate = 25\% of Total Credits} \\
+ \textit {Weighted Individual X coordinate = 25\% of Total Credits} \\
+ \textit {Weighted Individual Time Interval = 25\% of Total Credits} \\
+ \end{center}
+ \caption{Figure 8 Weights of different Output Category Values} \\ \\
+ Therefore Total Credits = 100\%, so for our methodology, Total Credits is the degree to which a template \emph{$T_1$} is related to template \emph{$T_2$}
+ 
+ \subsubsection{How our methodology is applied to continuously authenticate an Android User}
+ Everytime when a user, \emph{$User_1$} is using the Android  device, our methodology listens to scroll events on the Android device. For every scroll event detected, it creates a template $t_1$,  which consists of all output Categories for example  $t_1$ = (Low, Low, High, Medium, Low) and then compute \emph{Total Credits} of $t_1$ by taking into consideration the weights \textit{(see Figure 8)} of each category output. Lets say the Saved known template for \emph{$User_1$}, $T_1$ = (Low,High,Medium,Low,Low) and the values in $T_1$ corresponds to values inputs derived from Weighted Individual Time Interval, Weighted Individual X Coordinate, Weighted Individual Y Coordinate,Weighted Individual Z-angle or Tilt angle and scrolling side respectively. Therefore $T_1$'s \emph{Total Credits} = 100\% since that is the Saved template. For every scroll event detected, $t_1$ is created which is then compared to $T_1$'s. The following illustrates how it happens. \\ \\
+ Saved template, $T_1$ = (Low,High,Medium,Low,Low) and newly created template for every scroll event detected, $t_1$ = (Low,Medium,Medium,Low,High) so \emph{Total Credits} for $t_1$ =
+ 
+ \begin{itemize}
+  \item Since first value in $T_1$ matches first value in $t_1$, \emph{Total Credits} for $t_1$ = 25\%
+  \item Since second value in $T_1$ does not match second value in $t_1$, \emph{Total Credits} for $t_1$ += 0\%
+\item Since third value in $T_1$ does  match third value in $t_1$, \emph{Total Credits} for $t_1$ += 25\%
+  \item Since fourth value in $T_1$ does  match fourth value in $t_1$, \emph{Total Credits} for $t_1$ += 12\%
+    \item Since fifth value in $T_1$ does not match fifth value in $t_1$, \emph{Total Credits} for $t_1$ += 0\%
+  
+ \end{itemize}
+ For the above, Total credits is 62\% , Therefore we can say that we have 62\% confidence that, the template  $t_1$ and template $T_1$ were created by the same user. Since its continuous authentication it implies that we are going to have a new template created every time a scroll event is detected. So for every user we are going to have $t_1$, $t_2$, $t_3$, $t_4$, $t_5$, ... $t_n$ as long they are scrolling, so our methodology works as follows, as new templates are added (scroll events are fired), it computes new \emph{Weighted Individual Total Credit} value. Another Question comes, Why \emph{Weighted Individual Total Credit}? The reason why we use Weighted Individual Total Credit Averages is because Weighted average minimizes the effect of unusual high and-low Total Credit values which might be as a result of imitation.
+ 
+ \emph{Weighted Individual Total Credit} is going to be comprised of all old templates of User X, and its computed everytime a new $t_1$ is created.
+ 
+\[ \textbf{Weighted Individual Total Credit} = \frac{\sum_{i=1}^n T_i w_i}   {\sum_{i=1}^n w_i}
+
+\]
+Where  \emph{$T_i$} is the Total Credit, \emph{$w_i$} is the frequency or number of occurrences of Total Credit in the Total Credit dataset, \emph{n} is the number of elements in the Total Credit dataset, specifically for User X. \\ \\
+At the end, this brings us to final fuzzy sets which are used to make a decision if the person using the device is the real person or an imposter. These fuzzy sets works with the degrees of confidence which we can boldly say, since the Weighted Individual Total Credit being continuously created by $t_2$, $t_2$, $t_3$, ... $t_n$ is this value, its large enough to say with confidence that it is the real user using the device.
+ 
+  \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{total credit.JPG}
+ \end{figure}
+ \caption{Figure 8: Membership function for the Weighted Individual Total Credit and Confidence Level} \\ \\
+ 
+\emph{Figure 8} shows the relationship between the Weighted Individual Total Credit and the Confidence Level. For example a Weighted Total Credit of 80 corresponds to 80\% confidence level, hence the more we move to the fuzzy set \emph{Accept}. Weighted Total Credit values that are very high move more closer to the  \emph{Accept} fuzzy set, hence we can confidently say the Weighted Total Credit of 80 has a confidence level of 80\% that its inside the Accept fuzzy set.So the person creating these Weighted Averages is actually the real user and not an impostor.
+\bibliography
+\printbibliography
+
+\end{document}
