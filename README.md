@@ -1,2 +1,3 @@
 # COS700
-To contain code for my COS 700 Research prototype
+This Git repository contains code for my research project COS700 at University of Pretoria.
+
